@@ -1,26 +1,91 @@
 package com.example.nymble_assignment.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.nymble_assignment.utils.PassengerTypeEnum;
 import com.example.nymble_assignment.utils.Print;
 
 public class Passenger {
-    int passengerId;
-    String passengerName;
-    int balance;
-    PassengerTypeEnum passengerTypeEnum;
-    List<Activity> subscribedActivityList;
+    private int passengerId;
+    private int destinationId;
+    private String passengerName;
+    private int balance;
+    private PassengerTypeEnum passengerType;
+    private List<Activity> subscribedActivityList;
 
-    public Passenger(
-            int id,
-            String name,
-            int balance,
-            PassengerTypeEnum passengerTypeEnum) {
+    public Passenger(int id) {
         this.passengerId = id;
-        this.passengerName = name;
+        this.subscribedActivityList = new ArrayList<Activity>();
+    }
+
+    public int getPassengerId() {
+        return this.passengerId;
+    }
+
+    public void setPassengerId(int id) {
+        this.passengerId = id;
+    }
+
+    public int getDestinationId() {
+        return this.destinationId;
+    }
+
+    public void setDestinationId(int id) {
+        this.destinationId = id;
+    }
+
+    public int getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(int balance) {
         this.balance = balance;
-        this.passengerTypeEnum = passengerTypeEnum;
+    }
+
+    public String getPassengerName() {
+        return this.passengerName;
+    }
+
+    public void setPassengerName(String name) {
+        Print.println();
+        Print.print("Setting up passenger name :: " + name);
+        Print.println();
+        Print.println();
+        this.passengerName = name;
+    }
+
+    public PassengerTypeEnum getPassengerType() {
+        return this.passengerType;
+    }
+
+    public void setPassengerType(int choice) {
+        switch (choice) {
+            case 1:
+                this.passengerType = PassengerTypeEnum.standard;
+                break;
+            case 2:
+                this.passengerType = PassengerTypeEnum.gold;
+                break;
+            case 3:
+                this.passengerType = PassengerTypeEnum.premium;
+                break;
+            default:
+                this.passengerType = PassengerTypeEnum.standard;
+
+        }
+    }
+
+    public List<Activity> getSubscribedActivityList() {
+        return this.subscribedActivityList;
+    }
+
+    public void addActivityInList(Activity activity) {
+        if (activity != null)
+            this.subscribedActivityList.add(activity);
+        else
+            Print.print("activity found null in Passenger.java");
+
     }
 
     public boolean isPassengerAllowedForSubscription(
@@ -40,63 +105,111 @@ public class Passenger {
     }
 
     public void subscribePassenger(
-            Activity activity
-    ) {
+            Passenger passenger,
+            Activity activity,
+            TravelPackage travelPackage) {
         if (isPassengerAllowedForSubscription(
-                this.passengerTypeEnum,
-                activity.activityCost)) {
-            switch (this.passengerTypeEnum) {
+                this.passengerType,
+                activity.getActivityCost())) {
+            final int activityCost = activity.getActivityCost();
+
+            switch (this.passengerType) {
                 case standard:
-                    this.balance -= activity.activityCost;
+                    this.balance -= activityCost;
                     break;
                 case gold:
-                    this.balance -= activity.activityCost * 0.9;
+                    this.balance -= activityCost * 0.9;
                     break;
 
                 default:
                     break;
             }
-            activity.onActivitySubscription(activity);
+
+            activity.onActivitySubscription(activity, travelPackage);
+
             this.subscribedActivityList.add(activity);
+
+            travelPackage.addPassengerInList(passenger);
+
+            Print.println();
+            Print.println();
+            Print.print("Passenger subscribed for given activity successfully");
+            Print.println();
+            Print.println();
         }
     }
 
     public String getPassengerType(PassengerTypeEnum passengerTypeEnum) {
-        switch (passengerTypeEnum) {
-            case standard:
-                return "Standard";
-            case gold:
-                return "Gold";
-            case premium:
-                return "Premium";
+        if (passengerTypeEnum != null) {
+            switch (passengerTypeEnum) {
+                case standard:
+                    return "Standard";
+                case gold:
+                    return "Gold";
+                case premium:
+                    return "Premium";
 
-            default:
-                return "";
+                default:
+                    return "";
+            }
         }
-
+        return "";
     }
 
-    public void printPassengerDetails(Passenger passenger) {
-        Print.print("<----------- INFO Start :::: --------------->");
-        Print.print("Passenger id : " + passenger.passengerId);
-        Print.println();
-        Print.print("Passenger name : " + passenger.passengerName);
-        if (passenger.passengerTypeEnum != PassengerTypeEnum.premium) {
-
+    public void printPassengerDetails(Passenger passenger, TravelPackage travelPackage) {
+        try {
             Print.println();
-            Print.print("Passenger balance : " + passenger.balance);
-        }
-        Print.println();
-        Print.print("Passenger type : " + getPassengerType(passenger.passengerTypeEnum));
+            Print.println();
+            Print.println();
+            Print.print("<----------- Passenger info Start :::: --------------->");
+            Print.println();
+            Print.print("Passenger id : " + passenger.passengerId);
+            Print.println();
 
-        Print.println();
-        Print.print("Subscribed activity details");
-        for (Activity activity : this.subscribedActivityList) {
-            activity.printActivityDetails(this, activity);
-        }
+            // passenger name is missing
+            Print.print("Passenger name : " + passenger.passengerName);
+            Print.println();
+            if (passenger.passengerType != PassengerTypeEnum.premium) {
 
-        Print.println();
-        Print.print("<----------- INFO End :::: --------------->");
+                Print.print("Passenger balance : " + passenger.balance);
+                Print.println();
+            }
+
+            if (passenger.passengerType != null) {
+
+                Print.print("Passenger type : " + getPassengerType(passenger.passengerType));
+                Print.println();
+            }
+
+            if (this.subscribedActivityList != null) {
+                Print.println();
+                Print.println();
+                Print.println();
+                Print.print("Subscribed activity details");
+                Print.println();
+
+                for (Activity activity : this.subscribedActivityList) {
+                    activity.printDestinatioDetailsUsingTravelObj(travelPackage);
+                    activity.printActivityDetails(activity);
+                }
+
+            } else
+                Print.print("subscribedActivityList found null in Passenger.java");
+            Print.println();
+            Print.print("<----------- Passenger info end :::: --------------->");
+            Print.println();
+            Print.println();
+            Print.println();
+
+        } catch (Exception e) {
+            Print.println();
+            Print.println();
+            Print.println();
+            Print.print(e);
+            Print.println();
+            Print.println();
+            Print.println();
+        }
 
     }
 

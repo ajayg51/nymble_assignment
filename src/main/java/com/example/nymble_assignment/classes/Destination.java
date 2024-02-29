@@ -1,36 +1,128 @@
 package com.example.nymble_assignment.classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.nymble_assignment.utils.Constants;
 import com.example.nymble_assignment.utils.Print;
 
 public class Destination {
-    int destinationId;
-    String destinationName;
-    List<Activity> activityList;
+    private int destinationId;
+    private String destinationName;
+    private List<Activity> activityList;
 
     public Destination(
-        int id, 
-        String name,
-        List<Activity> list
-    ) {
-            this.destinationId = id;
-            this.destinationName = name;
-            this.activityList.addAll(list);
+            int id) {
+        this.destinationId = id;
+        this.activityList = new ArrayList<Activity>();
     }
 
-    public void printDestinationDetails(Destination destination) {
-        Print.print("<----------- Destination Info Start :::: --------------->");
-        Print.print("Destination id : " + destination.destinationId);
+    public int getDestinationId() {
+        return this.destinationId;
+    }
+
+    public void setDestinationId(int id) {
         Print.println();
-        Print.print("Destination name : " + destination.destinationName);
         Print.println();
-        Print.print("destination list : ");
-        for(Activity item : destination.activityList){
-            item.printActivityDetails(null,item);
+        Print.println();
+        Print.print("Setting up destination id :: " + id);
+        Print.println();
+        Print.println();
+        Print.println();
+        this.destinationId = id;
+    }
+
+    public String getDestinationName() {
+        return this.destinationName;
+    }
+
+    public void setDestinationName(String name) {
+        Print.println();
+        Print.println();
+        Print.println();
+        Print.print("Setting up destination name :: " + name);
+        Print.println();
+        Print.println();
+        Print.println();
+        this.destinationName = name;
+    }
+
+    public List<Activity> getActivityList() {
+        return this.activityList;
+    }
+
+    public Activity getActivityByIdFromActivityList(int activityId) {
+        boolean isFound = false;
+        Activity activity = new Activity(Constants.errorCode);
+
+        for (Activity item : this.activityList) {
+            if (item.getActivityId() == activityId) {
+                isFound = true;
+                activity = item;
+            }
         }
-        Print.println();
-        Print.print("<----------- Destination Info End :::: --------------->");
-        
+        if (!isFound) {
+            Print.println();
+            Print.print("Activity not found for id : " + activityId);
+            Print.println();
+        }
+
+        return activity;
+
+    }
+
+    public void addActivityInList(Activity activity) {
+        if (activity != null)
+            this.activityList.add(activity);
+        else
+            Print.print("activity found null in Destination.java");
+    }
+
+    public void printDestinationDetails(Destination destination, TravelPackage travelPackage) {
+        try {
+            Print.println();
+            Print.println();
+            Print.println();
+            Print.print("<----------- Destination Info Start :::: --------------->");
+            Print.println();
+            Print.print("Destination id : " + destination.destinationId);
+            Print.println();
+            Print.print("Destination name : " + destination.destinationName);
+            Print.println();
+            if (destination.activityList != null) {
+                Print.print("Showing destination activity list : ");
+                Print.println();
+                Print.println();
+                Print.println();
+                Print.println();
+                Print.print("<----------- Activity Info Start in Destination.java :::: --------------->");
+                Print.println();
+
+                for (Activity item : destination.activityList) {
+                    item.printDestinatioDetailsUsingTravelObj(travelPackage);
+                    item.printActivityDetails(item);
+                }
+                Print.println();
+            } else {
+
+                Print.print("activityList found null in Destination.java");
+                Print.println();
+            }
+
+            Print.print("<----------- Destination Info End :::: --------------->");
+            Print.println();
+            Print.println();
+            Print.println();
+
+        } catch (Exception e) {
+            Print.println();
+            Print.println();
+            Print.println();
+            Print.print(e);
+            Print.println();
+            Print.println();
+            Print.println();
+        }
+
     }
 }
