@@ -6,7 +6,7 @@ public class Constants {
     
     public static  int travelPackageId = 101;
     public static  String travelPackageName = "Nymble Travel Agency";
-    public static  int travelPackageCapacity = 1;
+    public static  int travelPackageCapacity = 3;
     
     public static int destination0Id = 1001;
     public static  String destination0Name = "Goa";
@@ -36,18 +36,18 @@ public class Constants {
     public static  int activity2Capacity = 3;
     public static  int activity2Cost = 3;
 
-    public static  int passenger0Id = 1020;
+    // public static  int passenger0Id = 1020;
     public static String passenger0Name = "Raj";
     public static int passenger0Balance = 2;
     public static  PassengerTypeEnum passenger0type = PassengerTypeEnum.standard;
     
     
-    public static  int passenger1Id = 1021;
+    // public static  int passenger1Id = 1021;
     public static String passenger1Name = "Simran";
     public static int passenger1Balance = 3;
     public static  PassengerTypeEnum passenger1type = PassengerTypeEnum.gold;
     
-    public static  int passenger2Id = 1022;
+    // public static  int passenger2Id = 1022;
     public static String passenger2Name = "Rahul";
     public static int passenger2Balance = 4;
     public static  PassengerTypeEnum passenger2type = PassengerTypeEnum.premium;

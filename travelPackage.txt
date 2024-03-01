@@ -4,7 +4,7 @@ Travel Package id : 101
 
 Travel Package name : Nymble Travel Agency
 
-Travel Package passenger capacity : 2
+Travel Package passenger capacity : 3
 
 
 Printing destination list : 
@@ -26,9 +26,9 @@ Activity name : Surfing
 
 Activity description : boat surfing
 
-Activity cost : 5
+Activity cost : 3.0
 
-Activity capacity : 5
+Activity capacity : 0
 
 Destination 2 : 
 
@@ -47,9 +47,9 @@ Activity name : dance
 
 Activity description : salsa
 
-Activity cost : 5
+Activity cost : 3.0
 
-Activity capacity : 5
+Activity capacity : 1
 
 Destination 3 : 
 
@@ -68,7 +68,7 @@ Activity name : roam
 
 Activity description : in metro
 
-Activity cost : 5
+Activity cost : 3.0
 
-Activity capacity : 5
+Activity capacity : 2
 

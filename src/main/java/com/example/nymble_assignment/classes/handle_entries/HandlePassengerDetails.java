@@ -101,14 +101,25 @@ public class HandlePassengerDetails {
                         Print.println();
 
                         int choice = scanner.nextInt();
-                        if (choice == 0 ||
-                                        travelPackage.getPassengerList()
-                                                        .size() >= travelPackage.getTravelPackagePassengerCapacity()) {
-                                Print.println();
-                                Print.println();
-                                Print.print("No more passengers can be added");
 
-                                Print.println();
+                        boolean isFurtherSubscriptionAllowed = travelPackage.getPassengerList()
+                                        .size() >= travelPackage.getTravelPackagePassengerCapacity();
+
+                        if (choice == 0 || isFurtherSubscriptionAllowed) {
+
+                                if (isFurtherSubscriptionAllowed) {
+                                        Print.println();
+                                        Print.println();
+                                        Print.print("No more passengers can be added");
+
+                                        Print.println();
+                                }else{
+                                        Print.println();
+                                        Print.println();
+                                        Print.print("Exiting");
+                                        Print.println();
+                                }
+
                                 break;
                         }
 
@@ -121,7 +132,7 @@ public class HandlePassengerDetails {
                         TravelPackage travelPackage) {
 
                 do {
-
+                        
                         if (travelPackage.isPassengerExhausted()) {
                                 Print.println();
                                 Print.println();
@@ -174,9 +185,9 @@ public class HandlePassengerDetails {
                         if (passenger.getPassengerId() != Constants.errorCode) {
 
                                 // TODO: passenger balance before subscription
-                                Print.println();
-                                Print.print("passenger balance before subscription : " + passenger.getBalance());
-                                Print.println();
+                                // Print.println();
+                                // Print.print("passenger balance before subscription : " + passenger.getBalance());
+                                // Print.println();
 
                                 boolean isSubscribed = handleDestinationActivityEntryAndSubsription(
                                                 scanner,
@@ -194,6 +205,9 @@ public class HandlePassengerDetails {
                                         // TODO: passenger balance before subscription
                                         Print.println();
                                         Print.print("passenger balance after subscription : " + passenger.getBalance());
+                                        Print.println();
+                                        Print.print("HandlePassengerDetails.java");
+
                                         Print.println();
 
                                 } else {
@@ -265,15 +279,17 @@ public class HandlePassengerDetails {
 
                                         if (isSubscriptionSuccess) {
                                                 // TODO: passenger balance before subscription
-                                                Print.println();
-                                                Print.print("passenger balance before subscription : "
-                                                                + passenger.getBalance());
-                                                Print.println();
+                                                // Print.println();
+                                                // Print.print("passenger balance before subscription : "
+                                                //                 + passenger.getBalance());
+                                                // Print.println();
 
                                                 // TODO: passenger balance before subscription
                                                 Print.println();
                                                 Print.print("passenger balance after subscription : "
                                                                 + passenger.getBalance());
+                                                Print.println();
+                                                Print.print("HandlePassengerDetails.java");
                                                 Print.println();
 
                                                 return true;

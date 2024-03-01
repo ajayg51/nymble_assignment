@@ -36,15 +36,15 @@ public class DummyData {
     public static int activity2Cost = Constants.activity2Cost;
 
 
-    public static  int passenger0Id = Constants.passenger0Id;
+    // public static  int passenger0Id = Constants.passenger0Id;
     public static String passenger0Name = Constants.passenger0Name;
     public static int passenger0Balance = Constants.passenger0Balance;
 
-    public static  int passenger1Id = Constants.passenger1Id;
+    // public static  int passenger1Id = Constants.passenger1Id;
     public static String passenger1Name = Constants.passenger1Name;
     public static int passenger1Balance = Constants.passenger1Balance;
 
-    public static  int passenger2Id = Constants.passenger2Id;
+    // public static  int passenger2Id = Constants.passenger2Id;
     public static String passenger2Name = Constants.passenger2Name;
     public static int passenger2Balance = Constants.passenger2Balance;
 

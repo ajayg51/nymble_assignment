@@ -11,6 +11,8 @@ import com.example.nymble_assignment.classes.handle_entries.HandleActivityDetail
 import com.example.nymble_assignment.classes.handle_entries.HandleDestinationDetails;
 import com.example.nymble_assignment.classes.handle_entries.HandlePassengerDetails;
 import com.example.nymble_assignment.classes.handle_entries.HandleTravelPackageDetails;
+import com.example.nymble_assignment.file_system.DestinationFileHandling;
+import com.example.nymble_assignment.file_system.TravelPackageFileHandling;
 import com.example.nymble_assignment.utils.Constants;
 import com.example.nymble_assignment.utils.PassengerTypeEnum;
 import com.example.nymble_assignment.utils.Print;
@@ -108,9 +110,21 @@ public class Main {
 
                 // for (Passenger passenger : passengerList) {
 
-                //         travelPackage.addPassengerInList(passenger);
+                // travelPackage.addPassengerInList(passenger);
 
                 // }
+
+                // FIXME: add some passengers
+                //
+                if (travelPackage.getPassengerList().size() == 0) {
+                        Print.println();
+                        Print.println();
+                        Print.print("Travel package capacity found to be 0");
+                        Print.println();
+                        Print.println();
+                        Print.println();
+                        return;
+                }
 
                 Print.println();
 
@@ -168,6 +182,8 @@ public class Main {
                                 Print.println();
                                 Print.print("Activity name : " + activity.getActivityName());
                                 Print.println();
+                                Print.print("Activity description : " + activity.getActivityDescription());
+                                Print.println();
                                 Print.println();
                                 Print.println();
 
@@ -198,71 +214,86 @@ public class Main {
                         Print.println();
                         Print.print("Passenger name  : " + passenger.getPassengerName());
                         Print.println();
+                        Print.print("Subscription status  : " + passenger.getIsSubscribedToAnActivity());
+                        Print.println();
+                        Print.println();
+                        Print.println();
                 }
 
                 // TODO: Printing Passenger details
 
                 Print.println();
                 Print.println();
+                Print.print("Printing passenger details below ::");
                 Print.println();
-                for (Passenger passenger : travelPackage.getSubscribedPassengerList()) {
-                        Print.print("Passenger id  : " + passenger.getPassengerId());
-                        Print.println();
-                        Print.print("Passenger name  : " + passenger.getPassengerName());
-                        Print.println();
-                        PassengerTypeEnum passengerType = passenger.getPassengerType();
-                        Print.print("Passenger type  : " + passengerType);
-                        Print.println();
-                        if (passengerType != PassengerTypeEnum.premium) {
-                                Print.print("Passenger balance  : " + passenger.getBalance());
-                                Print.println();
-                        }
-                        Print.print("Printing subscribed activity list : ");
-                        Print.println();
-                        for (Activity activity : passenger.getSubscribedActivityList()) {
-                                Destination destination = travelPackage
-                                                .getDestinationByIdFromDestList(activity.getDestinationId());
-                                Print.print("Destination : " + destination.getDestinationName());
-                                Print.println();
-                                Print.print("Activity : " + activity.getActivityName());
-                                Print.println();
-                                Print.print("Price paid for above activity");
-                                Print.println();
-                                switch (passengerType) {
-                                        case standard:
-                                                Print.print(activity.getActivityCost());
-                                                
-                                                break;
-                                        case gold:
-                                                Print.print(activity.getActivityCost() * 0.9);
-                                                break;
 
-                                        default:
-                                                Print.print(0);
+                for (Passenger passenger : travelPackage.getPassengerList()) {
+                        if (passenger.getIsSubscribedToAnActivity()) {
+                                Print.print("Passenger id  : " + passenger.getPassengerId());
+                                Print.println();
+                                Print.print("Passenger name  : " + passenger.getPassengerName());
+                                Print.println();
+                                Print.print("Subscription status  : " + passenger.getIsSubscribedToAnActivity());
+                                Print.println();
+                                PassengerTypeEnum passengerType = passenger.getPassengerType();
+                                Print.print("Passenger type  : " + passengerType);
+                                Print.println();
+                                if (passengerType != PassengerTypeEnum.premium) {
+                                        Print.print("Passenger balance  : " + passenger.getBalance());
+                                        Print.println();
                                 }
+                                Print.print("Printing subscribed activity list : ");
                                 Print.println();
-                                Print.println();
-                                Print.println();
-                                
+                                for (Activity activity : passenger.getSubscribedActivityList()) {
+                                        Destination destination = travelPackage
+                                                        .getDestinationByIdFromDestList(activity.getDestinationId());
+                                        Print.print("Destination : " + destination.getDestinationName());
+                                        Print.println();
+                                        Print.print("Activity name : " + activity.getActivityName());
+                                        Print.println();
+                                        Print.println();
+                                        Print.print("Activity description : " + activity.getActivityDescription());
+                                        Print.println();
+                                        Print.print("Price paid for above activity");
+                                        Print.println();
+                                        switch (passengerType) {
+                                                case standard:
+                                                        Print.print(activity.getActivityCost());
+
+                                                        break;
+                                                case gold:
+                                                        Print.print(activity.getActivityCost() * 0.9);
+                                                        break;
+
+                                                default:
+                                                        Print.print(0);
+                                        }
+                                        Print.println();
+                                        Print.println();
+                                        Print.println();
+                                }
+
                         }
                 }
 
                 // TODO: Printing Activity details
 
-                for(Destination destination : travelPackage.getDestinationList()){
-                        for(Activity activity : destination.getActivityList()){
-                                if(activity.getActivityCapacity() > 0){
+                for (Destination destination : travelPackage.getDestinationList()) {
+                        for (Activity activity : destination.getActivityList()) {
+                                if (activity.getActivityCapacity() > 0) {
                                         Print.println();
                                         Print.println();
-                                        Print.print("Activity name : "+activity.getActivityName());
+                                        Print.print("Activity name : " + activity.getActivityName());
                                         Print.println();
-                                        Print.print("Activity capacity : "+activity.getActivityCapacity());
+                                        Print.println();
+                                        Print.print("Activity description : " + activity.getActivityDescription());
+                                        Print.println();
+                                        Print.print("Activity capacity : " + activity.getActivityCapacity());
                                         Print.println();
                                         Print.println();
                                 }
                         }
                 }
-
 
                 // TODO: Writing to file block
 

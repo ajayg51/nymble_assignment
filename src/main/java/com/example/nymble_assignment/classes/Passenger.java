@@ -63,9 +63,11 @@ public class Passenger {
         Print.println();
         Print.print("bal : " + this.balance);
 
-        Print.println();
-        Print.print("bal ka 90% : " + (cost) + " " + (cost * 0.9));
-        Print.println();
+        if (this.getPassengerType() == PassengerTypeEnum.gold) {
+            Print.println();
+            Print.print("bal : " + (cost) + " ka 90% : " + (cost * 0.9));
+            Print.println();
+        }
 
         switch (this.passengerType) {
             case standard:
@@ -85,9 +87,7 @@ public class Passenger {
         Print.print("Upadting passenger balance :: passenger.java ");
         Print.println();
         Print.print("ID : " + passengerId);
-        Print.println();
-        Print.print("balance before deduction : " + this.getBalance());
-        Print.println();
+
         Print.print("  balance after deduction " + this.getBalance());
         Print.println();
 

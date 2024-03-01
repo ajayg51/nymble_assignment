@@ -7,6 +7,18 @@ Destination name : Goa
 
 Printing activity list : 
 
+Activity 1 : 
+
+Activity id : 10001
+
+Activity name : Surfing
+
+Activity description : boat surfing
+
+Activity cost : 3.0
+
+Activity capacity : 0
+
 
 
 
@@ -18,6 +30,18 @@ Destination name : Lucknow
 
 Printing activity list : 
 
+Activity 1 : 
+
+Activity id : 10002
+
+Activity name : dance
+
+Activity description : salsa
+
+Activity cost : 3.0
+
+Activity capacity : 1
+
 
 
 
@@ -28,6 +52,18 @@ Destination name : Delhi
 
 
 Printing activity list : 
+
+Activity 1 : 
+
+Activity id : 10003
+
+Activity name : roam
+
+Activity description : in metro
+
+Activity cost : 3.0
+
+Activity capacity : 2
 
 
 
