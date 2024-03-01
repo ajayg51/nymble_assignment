@@ -36,67 +36,15 @@ public class HandlePassengerDetails {
 
         }
 
-        public static List<Passenger> enterPassengerDetails(
+        public static void enterPassengerDetails(
                         Scanner scanner,
                         TravelPackage travelPackage) {
-
-                List<Passenger> passengerList = new ArrayList<>();
 
                 Print.println();
                 Print.print("Entering passenger details ---->>");
                 Print.println();
 
-                passengerList.addAll(enterPassengerDetails(scanner));
-
-                return passengerList;
-        }
-
-        // private static List<Passenger> handleActivityInput(
-        // Scanner scanner,
-        // TravelPackage travelPackage
-        // // Destination destination
-        // ) {
-
-        // List<Passenger> passengerList = new ArrayList<>();
-
-        // // do {
-        // // displayActivityNameAndId(destination);
-
-        // // Print.println();
-        // // Print.print("Enter activity id from above list :");
-        // // Print.println();
-        // // Print.print("Only an int input :: ");
-
-        // // int activityId = scanner.nextInt();
-
-        // // Activity activity =
-        // destination.getActivityByIdFromActivityList(activityId);
-
-        // // if (activity.getActivityId() != Constants.errorCode) {
-
-        // // passengerList.addAll(enterPassengerDetails(
-        // // scanner
-        // // // activityId,
-        // // // destination.getDestinationId()
-        // // ));
-
-        // // break;
-        // // }
-
-        // // } while (true);
-
-        // return passengerList;
-        // }
-
-        private static List<Passenger> enterPassengerDetails(
-                        Scanner scanner
-        // int activityId,
-        // int destinationId
-
-        ) {
                 int passengerCount = 1;
-
-                List<Passenger> passengerList = new ArrayList<>();
 
                 do {
                         Passenger passenger = new Passenger(Constants.errorCode);
@@ -142,7 +90,7 @@ public class HandlePassengerDetails {
 
                         passenger.setBalance(balance);
 
-                        passengerList.add(passenger);
+                        travelPackage.addPassengerInList(passenger);
 
                         passengerCount++;
 
@@ -153,52 +101,20 @@ public class HandlePassengerDetails {
                         Print.println();
 
                         int choice = scanner.nextInt();
-                        if (choice == 0) {
+                        if (choice == 0 ||
+                                        travelPackage.getPassengerList()
+                                                        .size() >= travelPackage.getTravelPackagePassengerCapacity()) {
+                                Print.println();
+                                Print.println();
+                                Print.print("No more passengers can be added");
+
+                                Print.println();
                                 break;
                         }
 
                 } while (true);
 
-                return passengerList;
         }
-
-        // private static void displayDestinationNameAndId(TravelPackage travelPackage)
-        // {
-        // List<Destination> destinationList = travelPackage.getDestinationList();
-
-        // Print.println();
-        // Print.print("Displaying destination name and its id :: ");
-        // Print.println();
-
-        // for (Destination destination : destinationList) {
-        // Print.print("Destination :: " + destination.getDestinationName());
-        // Print.println();
-        // Print.print("Id :: " + destination.getDestinationId());
-        // Print.println();
-
-        // }
-
-        // }
-
-        // private static void displayActivityNameAndId(Destination destination) {
-
-        // Print.println();
-        // Print.print("Destination name : ");
-        // Print.print(destination.getDestinationName());
-        // Print.println();
-        // Print.print("Displaying activity name and its id for destination :: ");
-        // Print.println();
-
-        // List<Activity> activityList = destination.getActivityList();
-
-        // for (Activity activity : activityList) {
-        // Print.print("Activity :: " + activity.getActivityName());
-        // Print.println();
-        // Print.print("ID :: " + activity.getActivityId());
-        // Print.println();
-        // }
-
-        // }
 
         public static void subscribePassenger(
                         Scanner scanner,
@@ -280,15 +196,12 @@ public class HandlePassengerDetails {
                                         Print.print("passenger balance after subscription : " + passenger.getBalance());
                                         Print.println();
 
-                                        // travelPackage.addSubscribedPassengerInList(passenger);
-
-                                        // passengerList.add(passenger);
-
                                 } else {
                                         Print.println();
                                         Print.print("Subscription failure :: try to subscribe again :: HandlePassengerDetails.java");
                                         Print.println();
                                 }
+
                                 Print.println();
                                 Print.println();
                                 Print.print("Want to subscribe more ");
@@ -346,23 +259,37 @@ public class HandlePassengerDetails {
 
                                 if (IsAbleToSubscribe) {
 
-                                        activity.onActivitySubscription(
+                                        boolean isSubscriptionSuccess = activity.onActivitySubscription(
                                                         travelPackage, activity,
                                                         passenger);
 
-                                        // TODO: passenger balance before subscription
-                                        Print.println();
-                                        Print.print("passenger balance before subscription : "
-                                                        + passenger.getBalance());
-                                        Print.println();
+                                        if (isSubscriptionSuccess) {
+                                                // TODO: passenger balance before subscription
+                                                Print.println();
+                                                Print.print("passenger balance before subscription : "
+                                                                + passenger.getBalance());
+                                                Print.println();
 
-                                        // TODO: passenger balance before subscription
-                                        Print.println();
-                                        Print.print("passenger balance after subscription : "
-                                                        + passenger.getBalance());
-                                        Print.println();
+                                                // TODO: passenger balance before subscription
+                                                Print.println();
+                                                Print.print("passenger balance after subscription : "
+                                                                + passenger.getBalance());
+                                                Print.println();
 
-                                        return true;
+                                                return true;
+                                        } else {
+                                                Print.println();
+                                                Print.print("Subscription failure :: activity.java");
+
+                                                Print.println();
+                                                Print.print("Travel package capacity is full : ");
+                                                Print.print(travelPackage
+                                                                .getTravelPackagePassengerCapacity() == travelPackage
+                                                                                .getSubscribedPassengerList().size());
+                                                Print.println();
+                                                Print.println();
+                                                return false;
+                                        }
 
                                 } else {
                                         Print.println();
@@ -387,6 +314,9 @@ public class HandlePassengerDetails {
                                         Print.println();
                                         Print.println();
                                 }
+
+                                return false;
+
                         }
 
                 }

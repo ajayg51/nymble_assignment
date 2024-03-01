@@ -85,7 +85,7 @@ public class Activity {
         this.activityDescription = description;
     }
 
-    public void onActivitySubscription(
+    public boolean onActivitySubscription(
             TravelPackage travelPackage,
             Activity activity,
             Passenger passenger) {
@@ -96,7 +96,7 @@ public class Activity {
             Print.println();
 
             if (travelPackage
-                    .getSubscribedPassengerList().size() > travelPackage
+                    .getSubscribedPassengerList().size() >= travelPackage
                             .getTravelPackagePassengerCapacity()) {
                 Print.println();
                 Print.println();
@@ -104,18 +104,30 @@ public class Activity {
                 Print.println();
                 Print.println();
 
+                return false;
+
             } else {
                 activity.activityCapacity--;
 
                 passenger.addActivityInList(activity);
                 passenger.setIsSubscribedToAnActivity(true);
 
-                travelPackage.addSubscribedPassengerInList(passenger);
+                // travelPackage.addSubscribedPassengerInList(passenger);
+
+                for (Passenger item : travelPackage.getSubscribedPassengerList()) {
+                    if (item.getPassengerId() != passenger.getPassengerId()) {
+
+                        travelPackage.addSubscribedPassengerInList(passenger);
+                    } else {
+                        travelPackage.getSubscribedPassengerList().remove(passenger);
+                    }
+                }
 
                 Print.println();
                 Print.print("Subscription success :: activity.java");
                 Print.println();
 
+                return true;
             }
 
         } else {
@@ -124,13 +136,15 @@ public class Activity {
             Print.println();
 
             if (travelPackage
-                    .getSubscribedPassengerList().size() > travelPackage
+                    .getSubscribedPassengerList().size() >= travelPackage
                             .getTravelPackagePassengerCapacity()) {
                 Print.println();
                 Print.println();
                 Print.print("Package travel capacity is full : activity.java");
                 Print.println();
                 Print.println();
+
+                return false;
 
             } else {
                 activity.activityCapacity--;
@@ -140,12 +154,20 @@ public class Activity {
 
                 passenger.updateBalance(activityCost);
 
-                travelPackage.addSubscribedPassengerInList(passenger);
+                for (Passenger item : travelPackage.getSubscribedPassengerList()) {
+                    if (item.getPassengerId() != passenger.getPassengerId()) {
+
+                        travelPackage.addSubscribedPassengerInList(passenger);
+                    } else {
+                        travelPackage.getSubscribedPassengerList().remove(passenger);
+                    }
+                }
 
                 Print.println();
                 Print.print("Subscription success :: activity.java");
                 Print.println();
-
+                
+                return true;
             }
 
         }

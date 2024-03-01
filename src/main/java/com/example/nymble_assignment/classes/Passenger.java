@@ -57,36 +57,39 @@ public class Passenger {
 
     public void updateBalance(double cost) {
 
+        Print.println();
+        Print.println();
+        Print.print("Balance : passenger.java");
+        Print.println();
+        Print.print("bal : " + this.balance);
+
+        Print.println();
+        Print.print("bal ka 90% : " + (cost) + " " + (cost * 0.9));
+        Print.println();
+
         switch (this.passengerType) {
             case standard:
-                this.balance -= cost;
+                this.setBalance(this.balance - cost);
+
                 break;
             case gold:
-                this.balance -= cost * 0.9;
+                this.setBalance(this.balance - (cost * 0.9));
+
                 break;
 
             default:
                 break;
         }
 
-        double deductedBalance = this.balance - cost;
-
-        if (deductedBalance >= 0) {
-            Print.println();
-            Print.print("Upadting passenger balance :: passenger.java ");
-            Print.println();
-            Print.print("ID : " + passengerId);
-            Print.println();
-            Print.print("balance before deduction : " + this.getBalance());
-            Print.println();
-            Print.print("  balance after deduction " + deductedBalance);
-            Print.println();
-            this.setBalance(deductedBalance);
-        } else {
-            Print.println();
-            Print.print("Activity cost is too high");
-            Print.println();
-        }
+        Print.println();
+        Print.print("Upadting passenger balance :: passenger.java ");
+        Print.println();
+        Print.print("ID : " + passengerId);
+        Print.println();
+        Print.print("balance before deduction : " + this.getBalance());
+        Print.println();
+        Print.print("  balance after deduction " + this.getBalance());
+        Print.println();
 
     }
 
@@ -150,14 +153,14 @@ public class Passenger {
 
             double cost) {
 
-        int travelPackageCapacity = travelPackage.getTravelPackagePassengerCapacity();
+        int travelPackagePassengerSize = travelPackage.getPassengerList().size();
         int travelPackageSubscribedListSize = travelPackage.getSubscribedPassengerList().size();
 
         int activityCapacity = activity.getActivityCapacity();
 
         Print.println();
         Print.println();
-        Print.print("travel package capacity : passenger.java :: " + travelPackageCapacity);
+        Print.print("travel package passenger size : passenger.java :: " + travelPackagePassengerSize);
         Print.println();
         Print.print("activity capacity :: " + activityCapacity);
         Print.println();
@@ -165,12 +168,12 @@ public class Passenger {
         switch (passengerTypeEnum) {
             case standard:
             case gold:
-                return travelPackageCapacity > travelPackageSubscribedListSize &&
+                return travelPackagePassengerSize > travelPackageSubscribedListSize &&
                         activityCapacity > 0 &&
                         this.balance >= cost;
             case premium:
 
-                return travelPackageCapacity > travelPackageSubscribedListSize &&
+                return travelPackagePassengerSize > travelPackageSubscribedListSize &&
                         activityCapacity > 0;
 
             default:

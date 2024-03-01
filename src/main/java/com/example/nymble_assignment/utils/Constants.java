@@ -6,7 +6,7 @@ public class Constants {
     
     public static  int travelPackageId = 101;
     public static  String travelPackageName = "Nymble Travel Agency";
-    public static  int travelPackageCapacity = 3;
+    public static  int travelPackageCapacity = 1;
     
     public static int destination0Id = 1001;
     public static  String destination0Name = "Goa";

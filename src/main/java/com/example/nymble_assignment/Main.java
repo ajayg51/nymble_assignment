@@ -95,7 +95,7 @@ public class Main {
 
                 // TODO: entering passenger details
 
-                List<Passenger> passengerList = HandlePassengerDetails
+                HandlePassengerDetails
                                 .enterPassengerDetails(
                                                 scanner,
                                                 travelPackage);
@@ -106,11 +106,12 @@ public class Main {
                 // Print.print("Printing passenger details : Main.java");
                 // Print.println();
 
-                for (Passenger passenger : passengerList) {
+                // for (Passenger passenger : passengerList) {
 
-                        travelPackage.addPassengerInList(passenger);
+                //         travelPackage.addPassengerInList(passenger);
 
-                }
+                // }
+
                 Print.println();
 
                 Print.println();
@@ -230,6 +231,7 @@ public class Main {
                                 switch (passengerType) {
                                         case standard:
                                                 Print.print(activity.getActivityCost());
+                                                
                                                 break;
                                         case gold:
                                                 Print.print(activity.getActivityCost() * 0.9);
@@ -238,6 +240,10 @@ public class Main {
                                         default:
                                                 Print.print(0);
                                 }
+                                Print.println();
+                                Print.println();
+                                Print.println();
+                                
                         }
                 }
 

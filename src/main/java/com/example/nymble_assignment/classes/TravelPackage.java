@@ -132,7 +132,7 @@ public class TravelPackage {
     }
 
     public void addDestinationInList(Destination destination) {
-        if (destination != null)
+        if (destination.getDestinationId() != Constants.errorCode)
             this.destinationList.add(destination);
         else
             Print.print("destination found null in TravelPackage.java");
@@ -142,22 +142,31 @@ public class TravelPackage {
         return this.passengerList;
     }
 
-    public void addPassengerInList(Passenger passenger) {
+    public boolean addPassengerInList(Passenger passenger) {
 
-        if (passenger.getPassengerId() != Constants.errorCode) {
+        if (this.passengerList.size() < passengerCapacity) {
+            if (passenger.getPassengerId() != Constants.errorCode) {
 
-            this.passengerList.add(passenger);
+                this.passengerList.add(passenger);
 
-            Print.print("Added passenger in travel package object successfully");
-            Print.println();
-            Print.print("Passenger id :: TravelPackage file ::: " + passenger.getPassengerId());
+                Print.print("Added passenger in travel package object successfully");
+                Print.println();
+                Print.print("Passenger id :: TravelPackage file ::: " + passenger.getPassengerId());
 
-            Print.println();
+                Print.println();
+                return true;
+            } else {
+                Print.println();
+                Print.print("passenger found null in TravelPackage.java");
+                Print.println();
+            }
         } else {
             Print.println();
-            Print.print("passenger found null in TravelPackage.java");
+            Print.println();
+            Print.print("No more passengers can be added");
             Print.println();
         }
+        return false;
 
     }
 
@@ -169,13 +178,24 @@ public class TravelPackage {
 
         if (passenger.getPassengerId() != Constants.errorCode) {
 
-            this.subscribedPassengerList.add(passenger);
+            if (this.getPassengerList()
+                    .size() > this
+                            .getSubscribedPassengerList()
+                            .size()) {
+                this.subscribedPassengerList.add(passenger);
 
-            Print.print("Added subsribed passenger successfully : Travel package.java");
-            Print.println();
-            Print.print("Passenger id : " + passenger.getPassengerId());
+                Print.print("Added subsribed passenger successfully : Travel package.java");
+                Print.println();
+                Print.print("Passenger id : " + passenger.getPassengerId());
 
-            Print.println();
+                Print.println();
+
+            } else {
+                Print.println();
+                Print.print("Cannot subscribe any more passenger TravelPackage.java");
+                Print.println();
+            }
+
         } else {
             Print.println();
             Print.print("passenger found null in TravelPackage.java");
@@ -185,7 +205,7 @@ public class TravelPackage {
     }
 
     public boolean isPassengerExhausted() {
-        return this.passengerCapacity <= 0;
+        return this.passengerList.size() <= this.subscribedPassengerList.size();
     }
 
     public Destination getFilteredDestination() {
