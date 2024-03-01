@@ -30,7 +30,16 @@ Activity cost : 5
 
 Activity capacity : 5
 
-Activity : 2
+Destination 2 : 
+
+Destination id : 1002
+
+Destination name : Lucknow
+
+
+Printing activity list : 
+
+Activity : 1
 
 Activity id : 10002
 
@@ -42,7 +51,16 @@ Activity cost : 5
 
 Activity capacity : 5
 
-Activity : 3
+Destination 3 : 
+
+Destination id : 1003
+
+Destination name : Delhi
+
+
+Printing activity list : 
+
+Activity : 1
 
 Activity id : 10003
 
@@ -53,22 +71,4 @@ Activity description : in metro
 Activity cost : 5
 
 Activity capacity : 5
-
-Destination 2 : 
-
-Destination id : 1002
-
-Destination name : Lucknow
-
-
-Printing activity list : 
-
-Destination 3 : 
-
-Destination id : 1003
-
-Destination name : Delhi
-
-
-Printing activity list : 
 

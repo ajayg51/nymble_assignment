@@ -6,7 +6,7 @@ public class Constants {
     
     public static  int travelPackageId = 101;
     public static  String travelPackageName = "Nymble Travel Agency";
-    public static  int travelPackageCapacity = 2;
+    public static  int travelPackageCapacity = 3;
     
     public static int destination0Id = 1001;
     public static  String destination0Name = "Goa";
@@ -21,20 +21,20 @@ public class Constants {
     public static int activity0Id = 10001;
     public static String activity0Name = "Surfing";
     public static String activity0Description = "boat surfing";
-    public static  int activity0Capacity = 5;
-    public static  int activity0Cost = 5;
+    public static  int activity0Capacity = 3;
+    public static  int activity0Cost = 3;
 
     public static int activity1Id = 10002;
     public static String activity1Name = "dance";
     public static String activity1Description = "salsa";
-    public static  int activity1Capacity = 5;
-    public static  int activity1Cost = 5;
+    public static  int activity1Capacity = 3;
+    public static  int activity1Cost = 3;
 
     public static int activity2Id = 10003;
     public static String activity2Name = "roam";
     public static String activity2Description = "in metro";
-    public static  int activity2Capacity = 5;
-    public static  int activity2Cost = 5;
+    public static  int activity2Capacity = 3;
+    public static  int activity2Cost = 3;
 
     public static  int passenger0Id = 1020;
     public static String passenger0Name = "Raj";

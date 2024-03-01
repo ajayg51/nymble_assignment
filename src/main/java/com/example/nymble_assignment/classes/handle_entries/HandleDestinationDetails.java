@@ -1,26 +1,25 @@
 package com.example.nymble_assignment.classes.handle_entries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.nymble_assignment.classes.Activity;
 import com.example.nymble_assignment.classes.Destination;
 import com.example.nymble_assignment.classes.TravelPackage;
-import com.example.nymble_assignment.file_system.DestinationFileHandling;
 import com.example.nymble_assignment.utils.Constants;
 import com.example.nymble_assignment.utils.Print;
 
 public class HandleDestinationDetails {
 
-    public static void setupDestinationDetails(
+    public static List<Destination> setupDestinationDetails(
             TravelPackage travelPackage) {
 
-        DestinationFileHandling DestinationFileHandling = new DestinationFileHandling();
+        Print.println();
+        Print.println();
+        Print.print("Setting up destination details :: ---> ");
+        Print.println();
 
-        Print.println();
-        Print.println();
-        Print.print("Setting up destination details");
-        Print.println();
-        Print.println();
+        List<Destination> destinationList = new ArrayList<>();
 
         int destinationCount = 0;
         while (destinationCount < 3) {
@@ -31,6 +30,7 @@ public class HandleDestinationDetails {
                 case 0:
                     Print.println();
                     Print.print("Destination :: " + (destinationCount + 1));
+                    Print.println();
                     destination.setDestinationId(Constants.destination0Id);
                     destination.setDestinationName(Constants.destination0Name);
 
@@ -39,6 +39,7 @@ public class HandleDestinationDetails {
                 case 1:
                     Print.println();
                     Print.print("Destination :: " + (destinationCount + 1));
+                    Print.println();
                     destination.setDestinationId(Constants.destination1Id);
                     destination.setDestinationName(Constants.destination1Name);
 
@@ -47,6 +48,7 @@ public class HandleDestinationDetails {
                 case 2:
                     Print.println();
                     Print.print("Destination :: " + (destinationCount + 1));
+                    Print.println();
                     destination.setDestinationId(Constants.destination2Id);
                     destination.setDestinationName(Constants.destination2Name);
 
@@ -58,11 +60,10 @@ public class HandleDestinationDetails {
 
             destinationCount++;
 
-            travelPackage.addDestinationInList(destination);
-
-            DestinationFileHandling.writeDestinationFile(destination);
+            destinationList.add(destination);
 
         }
+        return destinationList;
 
     }
 
@@ -86,7 +87,8 @@ public class HandleDestinationDetails {
             Print.println();
             Print.print("Destination name : " + destination.getDestinationName());
             Print.println();
-            Print.print("Printing activity details");
+            Print.println();
+            Print.print("Printing activity details below ---->");
             Print.println();
 
             for (Activity activity : destination.getActivityList()) {
@@ -103,8 +105,13 @@ public class HandleDestinationDetails {
                 Print.println();
                 Print.print("Activity capacity : " + activity.getActivityCapacity());
                 Print.println();
+                Print.println();
+                Print.println();
 
             }
+            Print.println();
+            Print.println();
+            Print.println();
 
         }
     }

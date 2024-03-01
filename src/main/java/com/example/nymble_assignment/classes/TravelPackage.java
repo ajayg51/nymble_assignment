@@ -16,6 +16,7 @@ public class TravelPackage {
     private Destination filteredDestination;
     private List<Destination> destinationList;
     private List<Passenger> passengerList;
+    private List<Passenger> subscribedPassengerList;
 
     public TravelPackage(
             int travelPackageId) {
@@ -23,6 +24,7 @@ public class TravelPackage {
         this.travelPackageId = travelPackageId;
         this.destinationList = new ArrayList<Destination>();
         this.passengerList = new ArrayList<Passenger>();
+        this.subscribedPassengerList = new ArrayList<Passenger>();
 
     }
 
@@ -31,7 +33,10 @@ public class TravelPackage {
     }
 
     public void setTravelPackageId(int id) {
+        Print.println();
+        Print.print("Setting up travel package id :: " + id);
         this.travelPackageId = id;
+        Print.println();
     }
 
     public int getTravelPackagePassengerCapacity() {
@@ -40,13 +45,17 @@ public class TravelPackage {
 
     public void setTravelPackagePassengerCapacity(int capacity) {
         Print.println();
-        Print.println();
-        Print.println();
-        Print.print("Setting up passenger capacity :: " + capacity);
+        Print.print("Setting up travel package capacity : travelPackage.java " + capacity);
         this.passengerCapacity = capacity;
         Print.println();
+
+    }
+
+    public void updateTravelPackagePassengerCapacity(int capacity) {
         Print.println();
+        Print.print("Updating passenger capacity :: travel package.java : new capacity :: " + capacity);
         Print.println();
+        this.setTravelPackagePassengerCapacity(capacity);
     }
 
     public String getTravelPackageName() {
@@ -55,12 +64,8 @@ public class TravelPackage {
 
     public void setTravelPackageName(String name) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up travel package name :: " + name);
         this.travelPackageName = name;
-        Print.println();
-        Print.println();
         Print.println();
     }
 
@@ -80,6 +85,10 @@ public class TravelPackage {
             Print.println();
             Print.print("Destination not found for id : " + destinationId);
             Print.println();
+        } else {
+            // Print.println();
+            // Print.print("Found destination for id : " + destinationId);
+            // Print.println();
         }
         return destination;
 
@@ -106,6 +115,18 @@ public class TravelPackage {
 
     }
 
+    // public void deletePassengerFromPassengerList(
+    // Passenger passenger) {
+    // if (passenger.getPassengerId() == Constants.errorCode) {
+    // Print.println();
+    // Print.print("Passenger not found :: Travel package.java ");
+    // Print.println();
+    // }
+
+    // this.passengerList.remove(passenger);
+
+    // }
+
     public List<Destination> getDestinationList() {
         return this.destinationList;
     }
@@ -122,15 +143,45 @@ public class TravelPackage {
     }
 
     public void addPassengerInList(Passenger passenger) {
-        if (passenger != null) {
+
+        if (passenger.getPassengerId() != Constants.errorCode) {
+
             this.passengerList.add(passenger);
-            Print.println();
-            Print.println();
+
             Print.print("Added passenger in travel package object successfully");
             Print.println();
+            Print.print("Passenger id :: TravelPackage file ::: " + passenger.getPassengerId());
+
             Print.println();
-        } else
+        } else {
+            Print.println();
             Print.print("passenger found null in TravelPackage.java");
+            Print.println();
+        }
+
+    }
+
+    public List<Passenger> getSubscribedPassengerList() {
+        return this.subscribedPassengerList;
+    }
+
+    public void addSubscribedPassengerInList(Passenger passenger) {
+
+        if (passenger.getPassengerId() != Constants.errorCode) {
+
+            this.subscribedPassengerList.add(passenger);
+
+            Print.print("Added subsribed passenger successfully : Travel package.java");
+            Print.println();
+            Print.print("Passenger id : " + passenger.getPassengerId());
+
+            Print.println();
+        } else {
+            Print.println();
+            Print.print("passenger found null in TravelPackage.java");
+            Print.println();
+        }
+
     }
 
     public boolean isPassengerExhausted() {
@@ -163,15 +214,15 @@ public class TravelPackage {
         }
     }
 
-    public void printTravelPackageDetails(TravelPackage travelPackage) {
+    public void printTravelPackageDetails() {
         try {
-            Print.print("Travel package id : " + travelPackage.travelPackageId);
+            Print.print("Travel package id : " + this.travelPackageId);
             Print.println();
-            Print.print("Travel package name : " + travelPackage.travelPackageName);
+            Print.print("Travel package name : " + this.travelPackageName);
             Print.println();
-            Print.print("Passenger capacity : " + travelPackage.passengerCapacity);
+            Print.print("Passenger capacity : " + this.passengerCapacity);
             Print.println();
-            Print.println();
+            this.printTravelPkgDestinationDetails();
 
         } catch (Exception e) {
             Print.println();
@@ -185,44 +236,52 @@ public class TravelPackage {
 
     }
 
-    public void printTravelPkgDestinationDetails(TravelPackage travelPackage) {
-        Print.println();
-        Print.println();
+    public void printTravelPkgDestinationDetails() {
         Print.println();
         Print.print("Showing Travel Package Destination info");
         Print.println();
-        if (travelPackage.destinationList != null) {
+        if (this.destinationList.size() > 0) {
             Print.print("Showing destination list : ");
             Print.println();
-            for (Destination item : travelPackage.destinationList) {
-                item.printDestinationDetails(item, travelPackage);
+            for (Destination item : this.destinationList) {
+                item.printDestinationDetails(item, this);
+
             }
         } else
-            Print.print("destinationList found null in TravelPackage.java");
+            Print.print("destinationList found empty in TravelPackage.java");
 
         Print.println();
         Print.println();
     }
 
-    public void printTravelPkgPassengerDetails(TravelPackage travelPackage) {
-        Print.println();
-        Print.println();
-        Print.println();
-        Print.print("Showing Travel Package Passenger info");
-        Print.println();
+    public void printTravelPkgPassengerDetails() {
 
-        if (travelPackage.passengerList != null) {
-            Print.print("Passenger count : " + travelPackage.passengerList.size());
+        if (this.passengerList.size() > 0) {
             Print.println();
             Print.println();
             Print.println();
-            Print.print("Passener details :: ");
+            Print.print("Showing Travel Package Passenger info");
             Print.println();
-            for (Passenger item : travelPackage.passengerList) {
-                item.printPassengerDetails(item, travelPackage);
+            Print.println();
+            Print.println();
+            Print.print("Travel package file passenger list size ::  " + this.passengerList.size());
+            Print.println();
+            Print.println();
+            Print.println();
+            Print.print("Passenger details :: ");
+            Print.println();
+
+            int passengerCount = 1;
+
+            for (Passenger item : this.passengerList) {
+                Print.println();
+                Print.print("Passenger :: " + passengerCount++);
+                Print.println();
+                item.printPassengerDetails(item, this);
+                Print.println();
             }
         } else
-            Print.print("passengerList found null in TravelPackage.java");
+            Print.print("passengerList found empty in TravelPackage.java");
         Print.println();
         Print.println();
     }

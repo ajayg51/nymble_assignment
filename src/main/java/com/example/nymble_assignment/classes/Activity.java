@@ -1,5 +1,6 @@
 package com.example.nymble_assignment.classes;
 
+import com.example.nymble_assignment.utils.PassengerTypeEnum;
 import com.example.nymble_assignment.utils.Print;
 
 public class Activity {
@@ -8,7 +9,7 @@ public class Activity {
     private int activityId;
     private String activityName;
     private String activityDescription;
-    private int activityCost;
+    private double activityCost;
     private int activityCapacity;
 
     public Activity(
@@ -30,27 +31,20 @@ public class Activity {
 
     public void setDestinationId(int id) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up destination id ::  " + id);
-        Print.println();
-        Print.println();
         Print.println();
         this.destinationId = id;
     }
 
-    public int getActivityCost() {
+    public double getActivityCost() {
         return this.activityCost;
     }
 
     public void setActivityCost(int cost) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up activity cost  :: " + cost);
         Print.println();
-        Print.println();
-        Print.println();
+
         this.activityCost = cost;
     }
 
@@ -59,13 +53,11 @@ public class Activity {
     }
 
     public void setActivityCapacity(int capacity) {
-        Print.println();
-        Print.println();
+
         Print.println();
         Print.print("Setting up activity capacity :: " + capacity);
         Print.println();
-        Print.println();
-        Print.println();
+
         this.activityCapacity = capacity;
     }
 
@@ -75,11 +67,8 @@ public class Activity {
 
     public void setActivityName(String name) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up activity name :: " + name);
-        Print.println();
-        Print.println();
+
         Print.println();
         this.activityName = name;
     }
@@ -90,25 +79,77 @@ public class Activity {
 
     public void setActivityDescription(String description) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up activity description ::  " + description);
-        Print.println();
-        Print.println();
         Print.println();
 
         this.activityDescription = description;
     }
 
     public void onActivitySubscription(
+            TravelPackage travelPackage,
             Activity activity,
-            TravelPackage travelPackage) {
+            Passenger passenger) {
 
-        activity.activityCapacity--;
+        if (passenger.getPassengerType() == PassengerTypeEnum.premium) {
+            Print.println();
+            Print.print("Premium member");
+            Print.println();
 
-        travelPackage
-                .setTravelPackagePassengerCapacity(travelPackage
-                        .getTravelPackagePassengerCapacity() - 1);
+            if (travelPackage
+                    .getSubscribedPassengerList().size() > travelPackage
+                            .getTravelPackagePassengerCapacity()) {
+                Print.println();
+                Print.println();
+                Print.print("Package travel capacity is full : activity.java");
+                Print.println();
+                Print.println();
+
+            } else {
+                activity.activityCapacity--;
+
+                passenger.addActivityInList(activity);
+                passenger.setIsSubscribedToAnActivity(true);
+
+                travelPackage.addSubscribedPassengerInList(passenger);
+
+                Print.println();
+                Print.print("Subscription success :: activity.java");
+                Print.println();
+
+            }
+
+        } else {
+            Print.println();
+            Print.print("Non-premium member : activity.java");
+            Print.println();
+
+            if (travelPackage
+                    .getSubscribedPassengerList().size() > travelPackage
+                            .getTravelPackagePassengerCapacity()) {
+                Print.println();
+                Print.println();
+                Print.print("Package travel capacity is full : activity.java");
+                Print.println();
+                Print.println();
+
+            } else {
+                activity.activityCapacity--;
+
+                passenger.addActivityInList(activity);
+                passenger.setIsSubscribedToAnActivity(true);
+
+                passenger.updateBalance(activityCost);
+
+                travelPackage.addSubscribedPassengerInList(passenger);
+
+                Print.println();
+                Print.print("Subscription success :: activity.java");
+                Print.println();
+
+            }
+
+        }
+
     }
 
     public void printDestinatioDetailsUsingTravelObj(TravelPackage travelPackage) {
@@ -120,7 +161,20 @@ public class Activity {
         Print.println();
     }
 
-    public void printActivityDetails(Activity activity) {
+    public void printActivityDetails(Activity activity, TravelPackage travelPackage) {
+
+        Destination destination = travelPackage
+                .getDestinationByIdFromDestList(activity.destinationId);
+
+        Print.println();
+        Print.println();
+        Print.print("Showing activity details :: activity.java");
+        Print.println();
+        Print.print("Destination id : " + activity.destinationId);
+        Print.print("Destination name : " + destination.getDestinationName());
+        Print.println();
+        Print.print("Activity id :: " + activity.getActivityId());
+        Print.println();
         Print.print("Activity name :: " + activity.getActivityName());
         Print.println();
         Print.print("Activity description :: " + activity.getActivityDescription());
@@ -128,6 +182,7 @@ public class Activity {
         Print.print("Activity cost :: " + activity.getActivityCapacity());
         Print.println();
         Print.print("Activity capacity :: " + activity.getActivityCapacity());
+        Print.println();
 
     }
 

@@ -23,11 +23,7 @@ public class Destination {
 
     public void setDestinationId(int id) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up destination id :: " + id);
-        Print.println();
-        Print.println();
         Print.println();
         this.destinationId = id;
     }
@@ -38,11 +34,7 @@ public class Destination {
 
     public void setDestinationName(String name) {
         Print.println();
-        Print.println();
-        Print.println();
         Print.print("Setting up destination name :: " + name);
-        Print.println();
-        Print.println();
         Print.println();
         this.destinationName = name;
     }
@@ -72,15 +64,19 @@ public class Destination {
     }
 
     public void addActivityInList(Activity activity) {
-        if (activity != null)
+        if (activity.getActivityId() != Constants.errorCode){
+            Print.println();
+            Print.println();
+            Print.print("Adding activity in destination :: destination.java :: ---> ");
             this.activityList.add(activity);
+            Print.println();
+        }
         else
             Print.print("activity found null in Destination.java");
     }
 
-    public void printDestinationDetails(Destination destination, TravelPackage travelPackage) {
+    public void printDestinationDetails(Destination destination,TravelPackage travelPackage) {
         try {
-            Print.println();
             Print.println();
             Print.println();
             Print.print("<----------- Destination Info Start :::: --------------->");
@@ -89,37 +85,32 @@ public class Destination {
             Print.println();
             Print.print("Destination name : " + destination.destinationName);
             Print.println();
-            if (destination.activityList != null) {
+            if (destination.activityList.size() > 0) {
                 Print.print("Showing destination activity list : ");
-                Print.println();
-                Print.println();
                 Print.println();
                 Print.println();
                 Print.print("<----------- Activity Info Start in Destination.java :::: --------------->");
                 Print.println();
 
                 for (Activity item : destination.activityList) {
-                    item.printDestinatioDetailsUsingTravelObj(travelPackage);
-                    item.printActivityDetails(item);
+                    // item.printDestinatioDetailsUsingTravelObj(travelPackage);
+                    item.printActivityDetails(item, travelPackage);
                 }
                 Print.println();
             } else {
 
-                Print.print("activityList found null in Destination.java");
+                Print.print("activityList found empty in Destination.java");
                 Print.println();
             }
 
             Print.print("<----------- Destination Info End :::: --------------->");
             Print.println();
             Print.println();
-            Print.println();
 
         } catch (Exception e) {
             Print.println();
             Print.println();
-            Print.println();
             Print.print(e);
-            Print.println();
             Print.println();
             Print.println();
         }

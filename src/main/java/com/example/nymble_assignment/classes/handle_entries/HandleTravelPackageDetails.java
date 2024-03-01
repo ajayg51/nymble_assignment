@@ -13,7 +13,6 @@ public class HandleTravelPackageDetails {
         Print.println();
         Print.print("Setting up Travel package details ---->>");
         Print.println();
-        Print.println();
 
         travelPackage.setTravelPackageId(Constants.travelPackageId);
         travelPackage.setTravelPackageName(Constants.travelPackageName);

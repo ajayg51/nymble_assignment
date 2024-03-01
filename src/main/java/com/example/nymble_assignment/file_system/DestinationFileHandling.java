@@ -10,13 +10,13 @@ import com.example.nymble_assignment.classes.Destination;
 import com.example.nymble_assignment.utils.Print;
 
 public class DestinationFileHandling {
-    private String destinationFilePath = "destination.txt";
+    private static String destinationFilePath = "destination.txt";
 
-    public String getDestinationFilePath() {
-        return this.destinationFilePath;
+    public static String getDestinationFilePath() {
+        return destinationFilePath;
     }
 
-    public void readDestinationFile() {
+    public static void readDestinationFile() {
         Print.println();
         Print.println();
         Print.println();
@@ -42,7 +42,7 @@ public class DestinationFileHandling {
         }
     }
 
-    public void writeDestinationFile(Destination destination) {
+    public static void writeDestinationFile(List<Destination> destinationList) {
         // TODO: get file lines
         Print.print("Destination File System :: writing file");
         Print.println();
@@ -50,31 +50,18 @@ public class DestinationFileHandling {
         try {
             PrintWriter printWriter = new PrintWriter(getDestinationFilePath(), "UTF-8");
 
-            printWriter.println("Destination id : " + destination.getDestinationId());
-            printWriter.println();
-            printWriter.println("Destination name : " + destination.getDestinationName());
-            printWriter.println();
+            for (Destination destination : destinationList) {
+                printWriter.println();
+                printWriter.println();
 
-            printWriter.println("Printing activity list : ");
-            printWriter.println();
-            int activityLine = 1;
+                printWriter.println("Destination id : " + destination.getDestinationId());
+                printWriter.println();
+                printWriter.println("Destination name : " + destination.getDestinationName());
+                printWriter.println();
+                printWriter.println();
+                writeActivityInFile(printWriter, destination);
 
-            List<Activity> activityList = destination.getActivityList();
-
-            for (Activity activity : activityList) {
-                printWriter.println("Activity " + activityLine + " : ");
                 printWriter.println();
-                activityLine++;
-
-                printWriter.println("Activity id : " + activity.getActivityId());
-                printWriter.println();
-                printWriter.println("Activity name : " + activity.getActivityName());
-                printWriter.println();
-                printWriter.println("Activity description : " + activity.getActivityDescription());
-                printWriter.println();
-                printWriter.println("Activity cost : " + activity.getActivityCost());
-                printWriter.println();
-                printWriter.println("Activity capacity : " + activity.getActivityCapacity());
                 printWriter.println();
 
             }
@@ -91,7 +78,37 @@ public class DestinationFileHandling {
         }
     }
 
-    public void deleteTravelPackageFile() {
+    private static void writeActivityInFile(
+            PrintWriter printWriter,
+            Destination destination) {
+
+        printWriter.println("Printing activity list : ");
+        printWriter.println();
+        int activityLine = 1;
+
+        List<Activity> activityList = destination.getActivityList();
+
+        for (Activity activity : activityList) {
+            printWriter.println("Activity " + activityLine + " : ");
+            printWriter.println();
+            activityLine++;
+
+            printWriter.println("Activity id : " + activity.getActivityId());
+            printWriter.println();
+            printWriter.println("Activity name : " + activity.getActivityName());
+            printWriter.println();
+            printWriter.println("Activity description : " + activity.getActivityDescription());
+            printWriter.println();
+            printWriter.println("Activity cost : " + activity.getActivityCost());
+            printWriter.println();
+            printWriter.println("Activity capacity : " + activity.getActivityCapacity());
+            printWriter.println();
+
+        }
+
+    }
+
+    public static void deleteTravelPackageFile() {
         Print.print("Inside delete File");
         Print.println();
         try {

@@ -11,17 +11,14 @@ import com.example.nymble_assignment.classes.TravelPackage;
 import com.example.nymble_assignment.utils.Print;
 
 public class TravelPackageFileHandling {
-    private String travelPackageFilePath = "travelPackage.txt";
+    private static  String travelPackageFilePath = "travelPackage.txt";
 
-    public TravelPackageFileHandling() {
 
+    public static  String getTravelPackagePath() {
+        return travelPackageFilePath;
     }
 
-    public String getTravelPackagePath() {
-        return this.travelPackageFilePath;
-    }
-
-    public void readTravelPackageFile() {
+    public static  void readTravelPackageFile() {
         Print.println();
         Print.println();
         Print.println();
@@ -47,7 +44,7 @@ public class TravelPackageFileHandling {
         }
     }
 
-    public void writeTravelPackageFile(TravelPackage travelPackage) {
+    public static void writeTravelPackageFile(TravelPackage travelPackage) {
         // TODO: get file lines
         Print.print("Travel Package File System :: writing file");
         Print.println();
@@ -63,7 +60,8 @@ public class TravelPackageFileHandling {
             printWriter.println("Travel Package name : " + travelPackage.getTravelPackageName());
             printWriter.println();
             printWriter.println(
-                    "Travel Package passenger capacity : " + travelPackage.getTravelPackagePassengerCapacity());
+                    "Travel Package passenger capacity : "
+                            + travelPackage.getTravelPackagePassengerCapacity());
             printWriter.println();
 
             writeDestinationDetails(printWriter, travelPackage);
@@ -80,7 +78,7 @@ public class TravelPackageFileHandling {
         }
     }
 
-    private void writeDestinationDetails(PrintWriter printWriter, TravelPackage travelPackage) {
+    private static void writeDestinationDetails(PrintWriter printWriter, TravelPackage travelPackage) {
         int destLine = 1;
 
         printWriter.println();
@@ -102,7 +100,7 @@ public class TravelPackageFileHandling {
 
     }
 
-    private void writeActivityDetails(
+    private static  void writeActivityDetails(
             PrintWriter printWriter,
             Destination destination) {
 
@@ -133,7 +131,7 @@ public class TravelPackageFileHandling {
 
     }
 
-    public void deleteTravelPackageFile() {
+    public static void deleteTravelPackageFile() {
         Print.print("Inside delete File");
         Print.println();
         try {

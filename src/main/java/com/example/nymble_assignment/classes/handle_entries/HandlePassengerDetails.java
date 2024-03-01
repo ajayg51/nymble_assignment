@@ -1,5 +1,6 @@
 package com.example.nymble_assignment.classes.handle_entries;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,7 +21,6 @@ public class HandlePassengerDetails {
 
                 Print.print("Enter passenger type  :");
                 Print.println();
-                Print.println();
                 Print.print("Press 1 for passenger type : standard");
                 Print.println();
                 Print.print("Press 2 for passenger type : gold");
@@ -36,108 +36,362 @@ public class HandlePassengerDetails {
 
         }
 
-        public static void enterPassengerDetails(
+        public static List<Passenger> enterPassengerDetails(
                         Scanner scanner,
                         TravelPackage travelPackage) {
 
-                // TODO: Enter passenger name
+                List<Passenger> passengerList = new ArrayList<>();
 
-                Passenger passenger = new Passenger(Constants.errorCode);
-
-                Print.println();
                 Print.println();
                 Print.print("Entering passenger details ---->>");
                 Print.println();
-                Print.println();
 
-                // scanner.nextLine();
-                Print.println();
-                Print.print("Enter passenger name :");
-                Print.println();
-                Print.println();
-                Print.print("Only a string input ::  ");
+                passengerList.addAll(enterPassengerDetails(scanner));
 
-                String passengerName = scanner.nextLine();
-                passenger.setPassengerName(passengerName);
-
-                // TODO: debugging
-                // Print.println();
-                // Print.print("passenger name : " + passengerName);
-                // Print.println();
-
-                enterPassengerType(scanner, passenger);
-
-                // TODO: Enter balance
-
-                Print.println();
-                Print.println();
-                Print.print("Enter balance :");
-                Print.println();
-                Print.println();
-                Print.print("Only an int input ::  ");
-
-                int balance = scanner.nextInt();
-
-                passenger.setBalance(balance);
-
-                travelPackage.addPassengerInList(passenger);
-
+                return passengerList;
         }
+
+        // private static List<Passenger> handleActivityInput(
+        // Scanner scanner,
+        // TravelPackage travelPackage
+        // // Destination destination
+        // ) {
+
+        // List<Passenger> passengerList = new ArrayList<>();
+
+        // // do {
+        // // displayActivityNameAndId(destination);
+
+        // // Print.println();
+        // // Print.print("Enter activity id from above list :");
+        // // Print.println();
+        // // Print.print("Only an int input :: ");
+
+        // // int activityId = scanner.nextInt();
+
+        // // Activity activity =
+        // destination.getActivityByIdFromActivityList(activityId);
+
+        // // if (activity.getActivityId() != Constants.errorCode) {
+
+        // // passengerList.addAll(enterPassengerDetails(
+        // // scanner
+        // // // activityId,
+        // // // destination.getDestinationId()
+        // // ));
+
+        // // break;
+        // // }
+
+        // // } while (true);
+
+        // return passengerList;
+        // }
+
+        private static List<Passenger> enterPassengerDetails(
+                        Scanner scanner
+        // int activityId,
+        // int destinationId
+
+        ) {
+                int passengerCount = 1;
+
+                List<Passenger> passengerList = new ArrayList<>();
+
+                do {
+                        Passenger passenger = new Passenger(Constants.errorCode);
+
+                        String passengerIdStr = Integer.toString(passengerCount);
+
+                        int passengerId = Integer
+                                        .parseInt(
+                                                        // destinationIdStr
+                                                        // + activityIdStr +
+                                                        passengerIdStr);
+
+                        passenger.setPassengerId(passengerId);
+
+                        if (passengerCount > 1) {
+
+                                scanner.nextLine();
+                        }
+
+                        Print.println();
+                        Print.print("Enter passenger name :");
+                        Print.println();
+                        Print.print("Only a string input ::  ");
+
+                        String passengerName = scanner.nextLine();
+                        passenger.setPassengerName(passengerName);
+
+                        // TODO: debugging
+                        // Print.println();
+                        // Print.print("passenger name : " + passengerName);
+                        // Print.println();
+
+                        enterPassengerType(scanner, passenger);
+
+                        // TODO: Enter balance
+
+                        Print.println();
+                        Print.print("Enter balance :");
+                        Print.println();
+                        Print.print("Only an int input ::  ");
+
+                        int balance = scanner.nextInt();
+
+                        passenger.setBalance(balance);
+
+                        passengerList.add(passenger);
+
+                        passengerCount++;
+
+                        Print.println();
+                        Print.print("Want to add more passengers ");
+                        Print.println();
+                        Print.print("Press 1 for yes and 0 for no");
+                        Print.println();
+
+                        int choice = scanner.nextInt();
+                        if (choice == 0) {
+                                break;
+                        }
+
+                } while (true);
+
+                return passengerList;
+        }
+
+        // private static void displayDestinationNameAndId(TravelPackage travelPackage)
+        // {
+        // List<Destination> destinationList = travelPackage.getDestinationList();
+
+        // Print.println();
+        // Print.print("Displaying destination name and its id :: ");
+        // Print.println();
+
+        // for (Destination destination : destinationList) {
+        // Print.print("Destination :: " + destination.getDestinationName());
+        // Print.println();
+        // Print.print("Id :: " + destination.getDestinationId());
+        // Print.println();
+
+        // }
+
+        // }
+
+        // private static void displayActivityNameAndId(Destination destination) {
+
+        // Print.println();
+        // Print.print("Destination name : ");
+        // Print.print(destination.getDestinationName());
+        // Print.println();
+        // Print.print("Displaying activity name and its id for destination :: ");
+        // Print.println();
+
+        // List<Activity> activityList = destination.getActivityList();
+
+        // for (Activity activity : activityList) {
+        // Print.print("Activity :: " + activity.getActivityName());
+        // Print.println();
+        // Print.print("ID :: " + activity.getActivityId());
+        // Print.println();
+        // }
+
+        // }
 
         public static void subscribePassenger(
                         Scanner scanner,
                         TravelPackage travelPackage) {
 
-                if (travelPackage.isPassengerExhausted()) {
+                do {
+
+                        if (travelPackage.isPassengerExhausted()) {
+                                Print.println();
+                                Print.println();
+                                Print.print("Subscription failure : handlePassengerDetails.java ");
+                                Print.println();
+                                Print.print("passenger capacity exhausted status :"
+                                                + travelPackage.isPassengerExhausted());
+                                Print.println();
+                                Print.print("Printing travel package passenger list");
+                                for (Passenger passenger : travelPackage.getPassengerList()) {
+                                        Print.println();
+
+                                        Print.print("Passenger id : " + passenger.getPassengerId());
+                                        Print.println();
+                                        Print.print("Passenger name : " + passenger.getPassengerName());
+                                        Print.println();
+                                        Print.print("Passenger subscription status : "
+                                                        + passenger.getIsSubscribedToAnActivity());
+                                        Print.println();
+                                }
+
+                        }
+
+                        int passengerId = Constants.errorCode;
+
+                        // FIXME: used when buffer not empty
+                        // scanner.nextLine();
+
+                        for (Passenger passenger : travelPackage.getPassengerList()) {
+                                Print.println();
+                                Print.println();
+                                Print.print("Passenger id :: HandlePassengerDetails File ::: "
+                                                + passenger.getPassengerId());
+                                Print.println();
+                                Print.print("Passenger name :: HandlePassengerDetails File ::: "
+                                                + passenger.getPassengerName());
+                                Print.println();
+                        }
+
                         Print.println();
-                        Print.print("Travel package passenger capacity exhausted");
+                        Print.print("Enter passenger id : ");
                         Print.println();
-                        return;
-                }
+                        Print.print("An int value : ");
 
-                int subscriptionPassengerId = Constants.errorCode;
+                        passengerId = scanner.nextInt();
 
-                // FIXME: used when buffer not empty
-                // scanner.nextLine();
+                        Passenger passenger = travelPackage
+                                        .getPassengerByIdFromPassengerList(passengerId);
 
-                Print.println();
-                Print.print("Enter passenger id : ");
-                Print.println();
-                Print.print("An int value : ");
+                        if (passenger.getPassengerId() != Constants.errorCode) {
 
-                subscriptionPassengerId = scanner.nextInt();
+                                // TODO: passenger balance before subscription
+                                Print.println();
+                                Print.print("passenger balance before subscription : " + passenger.getBalance());
+                                Print.println();
 
-                Passenger subscriptionPassenger = travelPackage
-                                .getPassengerByIdFromPassengerList(subscriptionPassengerId);
+                                boolean isSubscribed = handleDestinationActivityEntryAndSubsription(
+                                                scanner,
+                                                travelPackage,
+                                                passenger);
 
-                if (subscriptionPassenger.getPassengerId() != Constants.errorCode) {
-
-                        Destination destination = getDestination(scanner, travelPackage);
-
-                        if (destination.getDestinationId() != Constants.errorCode) {
-
-                                Activity activity = getActivity(scanner, destination);
-
-                                if (activity.getActivityId() != Constants.errorCode) {
-
-                                        activity.onActivitySubscription(
-                                                        activity, travelPackage);
-
-                                        subscriptionPassenger
-                                                        .subscribePassenger(
-                                                                        subscriptionPassenger,
-                                                                        activity, travelPackage);
-
+                                if (isSubscribed) {
                                         Print.println();
-                                        Print.println();
-                                        Print.print("Printing passenger details");
-                                        Print.println();
+                                        Print.print("Subscription successful :: HandlePassengerDetails.java");
                                         Print.println();
 
-                                        // printPassengerDetails(subscriptionPassenger);
+                                        Print.print("Passenger subscription status :: HandlePassengerDetails.java "
+                                                        + passenger.getIsSubscribedToAnActivity());
+
+                                        // TODO: passenger balance before subscription
+                                        Print.println();
+                                        Print.print("passenger balance after subscription : " + passenger.getBalance());
+                                        Print.println();
+
+                                        // travelPackage.addSubscribedPassengerInList(passenger);
+
+                                        // passengerList.add(passenger);
+
+                                } else {
+                                        Print.println();
+                                        Print.print("Subscription failure :: try to subscribe again :: HandlePassengerDetails.java");
+                                        Print.println();
+                                }
+                                Print.println();
+                                Print.println();
+                                Print.print("Want to subscribe more ");
+                                Print.println();
+                                Print.print("Press 1 for yes and 0 to exit");
+                                Print.println();
+
+                                int choice = scanner.nextInt();
+                                if (choice == 0) {
+                                        break;
                                 }
                         }
+
+                } while (true);
+
+                // return passengerList;
+
+        }
+
+        private static boolean handleDestinationActivityEntryAndSubsription(
+                        Scanner scanner,
+                        TravelPackage travelPackage,
+                        Passenger passenger) {
+
+                Destination destination = getDestination(scanner, travelPackage);
+
+                if (destination.getDestinationId() != Constants.errorCode) {
+
+                        Activity activity = getActivity(scanner, destination);
+
+                        if (activity.getActivityId() != Constants.errorCode) {
+
+                                // TODO: debug
+                                // Print.println();
+                                // Print.print("here 0");
+                                // Print.println();
+
+                                for (Activity item : passenger.getSubscribedActivityList()) {
+                                        if (item.getActivityId() == activity.getActivityId()) {
+                                                Print.println();
+                                                Print.println();
+                                                Print.print("User already subscribed for this activity");
+                                                Print.println();
+                                                Print.println();
+                                                return false;
+                                        }
+
+                                }
+
+                                boolean IsAbleToSubscribe = passenger.isPassengerAllowedForSubscription(
+                                                activity,
+                                                travelPackage,
+                                                passenger.getPassengerType(),
+                                                activity.getActivityCost());
+
+                                if (IsAbleToSubscribe) {
+
+                                        activity.onActivitySubscription(
+                                                        travelPackage, activity,
+                                                        passenger);
+
+                                        // TODO: passenger balance before subscription
+                                        Print.println();
+                                        Print.print("passenger balance before subscription : "
+                                                        + passenger.getBalance());
+                                        Print.println();
+
+                                        // TODO: passenger balance before subscription
+                                        Print.println();
+                                        Print.print("passenger balance after subscription : "
+                                                        + passenger.getBalance());
+                                        Print.println();
+
+                                        return true;
+
+                                } else {
+                                        Print.println();
+                                        Print.print("Subscription failure :: activity.java");
+                                        Print.println();
+                                        Print.print("Either activity cost is too high ");
+                                        Print.println();
+
+                                        Print.print("Cost : " + activity.getActivityCost());
+                                        Print.printSpace();
+                                        Print.print("Balance : " + passenger.getBalance());
+                                        Print.println();
+                                        Print.print("or activity capacity is 0");
+                                        Print.println();
+                                        Print.print("Activity cost : " + activity.getActivityCost());
+                                        Print.println();
+                                        Print.print("or travel package capacity is 0");
+                                        Print.println();
+                                        Print.print("Travel package capacity is full : ");
+                                        Print.print(travelPackage.getTravelPackagePassengerCapacity() == travelPackage
+                                                        .getSubscribedPassengerList().size());
+                                        Print.println();
+                                        Print.println();
+                                }
+                        }
+
                 }
+
+                return false;
 
         }
 
@@ -145,35 +399,85 @@ public class HandlePassengerDetails {
                         Scanner scanner,
                         TravelPackage travelPackage) {
 
-                // TODO: Enter destination Id
+                Destination destination = new Destination(Constants.errorCode);
 
-                Print.println();
-                Print.print("Enter destination id : ");
-                Print.println();
-                Print.print("An int value : ");
-                int destinationId = scanner.nextInt();
+                do {
+                        int destinationId = Constants.errorCode;
 
-                return travelPackage
-                                .getDestinationByIdFromDestList(destinationId);
+                        Print.print("Destination id and name");
+                        Print.println();
 
+                        List<Destination> destinationList = travelPackage.getDestinationList();
+
+                        for (Destination item : destinationList) {
+                                Print.println();
+                                Print.print("Destination id : " + item.getDestinationId());
+                                Print.println();
+                                Print.print("Destination name : " + item.getDestinationName());
+                                Print.println();
+                                Print.println();
+                        }
+
+                        Print.println();
+                        Print.print("Enter destination id : ");
+                        Print.println();
+                        Print.print("An int value : ");
+                        destinationId = scanner.nextInt();
+
+                        destination = travelPackage
+                                        .getDestinationByIdFromDestList(destinationId);
+
+                        if (destination.getDestinationId() != Constants.errorCode) {
+                                break;
+                        }
+
+                } while (true);
+
+                return destination;
         }
 
         private static Activity getActivity(
                         Scanner scanner,
                         Destination destination) {
 
-                int activityId = Constants.errorCode;
-
                 // TODO: Enter activity Id
 
-                Print.println();
-                Print.print("Enter activity id : ");
-                Print.println();
-                Print.print("An int value : ");
-                activityId = scanner.nextInt();
+                Activity activity = new Activity(Constants.errorCode);
 
-                return destination
-                                .getActivityByIdFromActivityList(activityId);
+                do {
+                        List<Activity> activityList = destination.getActivityList();
+                        Print.println();
+                        Print.print("Printing activity details ::");
+                        Print.println();
+                        for (Activity item : activityList) {
+                                Print.println();
+                                Print.print("Activity id : " + item.getActivityId());
+                                Print.println();
+                                Print.print("Activity name : " + item.getActivityName());
+                                Print.println();
+                                Print.print("Activity cost : " + item.getActivityCost());
+                                Print.println();
+                                Print.print("Activity capacity : " + item.getActivityCapacity());
+                                Print.println();
+                                Print.println();
+
+                        }
+                        Print.println();
+                        Print.print("Enter activity id : ");
+                        Print.println();
+                        Print.print("An int value : ");
+
+                        int activityId = scanner.nextInt();
+
+                        activity = destination.getActivityByIdFromActivityList(activityId);
+
+                        if (activity.getActivityId() != Constants.errorCode) {
+                                break;
+                        }
+
+                } while (true);
+
+                return activity;
 
         }
 
@@ -185,16 +489,18 @@ public class HandlePassengerDetails {
                 Print.println();
                 Print.print("Printing passenger Ids");
                 Print.println();
-                Print.println();
 
-                int passengerCount = 1;
                 for (Passenger passenger : passengerList) {
-                        Print.print("Passenger : " + passengerCount);
                         Print.println();
-                        passengerCount++;
-
                         Print.print("Passenger id : " + passenger.getPassengerId());
                         Print.println();
+                        Print.print("Passenger name : " + passenger.getPassengerName());
+                        Print.println();
+
+                        // Print.print("Passenger id :: HandlePassengerDetails File ::: " +
+                        // passenger.getPassengerId());
+                        // Print.println();
+
                 }
 
         }
@@ -204,33 +510,42 @@ public class HandlePassengerDetails {
 
                 List<Passenger> passengerList = travelPackage.getPassengerList();
 
-                int passengerCount = 1;
-
                 Print.println();
-                Print.print("Printing passenger details after subscription");
+                Print.print("Printing passenger details :: handlePassengerDetails.java :: ");
+                Print.println();
+
+                Print.print("Passenger list size :: " + passengerList.size());
                 Print.println();
 
                 for (Passenger passenger : passengerList) {
 
-                        Print.print("Passenger id : "
+                        Print.print("Passenger id :: HandlePassengerDetails File ::: "
                                         + passenger.getPassengerId());
                         Print.println();
                         Print.print("Passenger name : "
                                         + passenger.getPassengerName());
-                        Print.println();
-                        Print.print("Passenger name : "
-                                        + passenger.getPassengerName());
+
                         Print.println();
                         Print.print("Passenger balance : "
                                         + passenger
                                                         .getBalance());
+                        Print.println();
+                        Print.println();
 
-                        Print.println();
-                        Print.println();
-                        Print.print("Printing subscribed activity list : ");
-                        Print.println();
-                        Print.println();
-                        printSubscribedActivityList(passenger);
+                        List<Activity> activityList = passenger.getSubscribedActivityList();
+
+                        if (activityList.size() > 0) {
+
+                                Print.println();
+                                Print.print("Printing subscribed activity list : " + activityList.size());
+                                Print.println();
+
+                                printSubscribedActivityList(passenger);
+
+                                Print.println();
+                                Print.print("Printing passenger details end HandlePassengerDetails File ::: ");
+                                Print.println();
+                        }
                 }
 
         }
@@ -244,10 +559,10 @@ public class HandlePassengerDetails {
 
                 for (Activity item : subscribedList) {
                         Print.println();
-                        Print.println();
                         Print.print("Subscription : " + subscriptionCount);
                         Print.println();
                         subscriptionCount++;
+
                         Print.print("Activity id : " + item.getActivityId());
                         Print.println();
                         Print.print("Activity name : "
@@ -255,6 +570,8 @@ public class HandlePassengerDetails {
                         Print.println();
                         Print.print("Activity description : "
                                         + item.getActivityDescription());
+                        Print.println();
+                        Print.println();
 
                 }
         }

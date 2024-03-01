@@ -3,15 +3,19 @@ package com.example.nymble_assignment.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.nymble_assignment.utils.Constants;
 import com.example.nymble_assignment.utils.PassengerTypeEnum;
 import com.example.nymble_assignment.utils.Print;
 
 public class Passenger {
-    private int passengerId;
     private int destinationId;
+    private int activityId;
+
+    private int passengerId;
     private String passengerName;
-    private int balance;
+    private double balance;
     private PassengerTypeEnum passengerType;
+    private boolean isSubscribedToAnActivity;
     private List<Activity> subscribedActivityList;
 
     public Passenger(int id) {
@@ -27,6 +31,14 @@ public class Passenger {
         this.passengerId = id;
     }
 
+    public int getActivityId() {
+        return this.activityId;
+    }
+
+    public void setActivityId(int id) {
+        this.activityId = id;
+    }
+
     public int getDestinationId() {
         return this.destinationId;
     }
@@ -35,12 +47,47 @@ public class Passenger {
         this.destinationId = id;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return this.balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public void updateBalance(double cost) {
+
+        switch (this.passengerType) {
+            case standard:
+                this.balance -= cost;
+                break;
+            case gold:
+                this.balance -= cost * 0.9;
+                break;
+
+            default:
+                break;
+        }
+
+        double deductedBalance = this.balance - cost;
+
+        if (deductedBalance >= 0) {
+            Print.println();
+            Print.print("Upadting passenger balance :: passenger.java ");
+            Print.println();
+            Print.print("ID : " + passengerId);
+            Print.println();
+            Print.print("balance before deduction : " + this.getBalance());
+            Print.println();
+            Print.print("  balance after deduction " + deductedBalance);
+            Print.println();
+            this.setBalance(deductedBalance);
+        } else {
+            Print.println();
+            Print.print("Activity cost is too high");
+            Print.println();
+        }
+
     }
 
     public String getPassengerName() {
@@ -76,12 +123,20 @@ public class Passenger {
         }
     }
 
+    public boolean getIsSubscribedToAnActivity() {
+        return this.isSubscribedToAnActivity;
+    }
+
+    public void setIsSubscribedToAnActivity(boolean isSubscribed) {
+        this.isSubscribedToAnActivity = isSubscribed;
+    }
+
     public List<Activity> getSubscribedActivityList() {
         return this.subscribedActivityList;
     }
 
     public void addActivityInList(Activity activity) {
-        if (activity != null)
+        if (activity.getActivityId() != Constants.errorCode)
             this.subscribedActivityList.add(activity);
         else
             Print.print("activity found null in Passenger.java");
@@ -89,54 +144,62 @@ public class Passenger {
     }
 
     public boolean isPassengerAllowedForSubscription(
+            Activity activity,
+            TravelPackage travelPackage,
             PassengerTypeEnum passengerTypeEnum,
-            int cost) {
+
+            double cost) {
+
+        int travelPackageCapacity = travelPackage.getTravelPackagePassengerCapacity();
+        int travelPackageSubscribedListSize = travelPackage.getSubscribedPassengerList().size();
+
+        int activityCapacity = activity.getActivityCapacity();
+
+        Print.println();
+        Print.println();
+        Print.print("travel package capacity : passenger.java :: " + travelPackageCapacity);
+        Print.println();
+        Print.print("activity capacity :: " + activityCapacity);
+        Print.println();
+
         switch (passengerTypeEnum) {
             case standard:
-                return this.balance >= cost;
             case gold:
-                return this.balance >= cost;
+                return travelPackageCapacity > travelPackageSubscribedListSize &&
+                        activityCapacity > 0 &&
+                        this.balance >= cost;
             case premium:
-                return true;
+
+                return travelPackageCapacity > travelPackageSubscribedListSize &&
+                        activityCapacity > 0;
 
             default:
                 return false;
         }
     }
 
-    public void subscribePassenger(
-            Passenger passenger,
+    public boolean subscribePassenger(
             Activity activity,
             TravelPackage travelPackage) {
+
         if (isPassengerAllowedForSubscription(
+                activity,
+                travelPackage,
                 this.passengerType,
                 activity.getActivityCost())) {
-            final int activityCost = activity.getActivityCost();
-
-            switch (this.passengerType) {
-                case standard:
-                    this.balance -= activityCost;
-                    break;
-                case gold:
-                    this.balance -= activityCost * 0.9;
-                    break;
-
-                default:
-                    break;
-            }
-
-            activity.onActivitySubscription(activity, travelPackage);
-
-            this.subscribedActivityList.add(activity);
-
-            travelPackage.addPassengerInList(passenger);
 
             Print.println();
+            Print.print("Subscription allowed : Passenger.java");
             Print.println();
-            Print.print("Passenger subscribed for given activity successfully");
-            Print.println();
-            Print.println();
+            return true;
+
         }
+        Print.println();
+        Print.print("Subscription failure : Passenger.java");
+        Print.println();
+        Print.print("Passenger balance is too low for subscription");
+        Print.println();
+        return false;
     }
 
     public String getPassengerType(PassengerTypeEnum passengerTypeEnum) {
@@ -163,7 +226,7 @@ public class Passenger {
             Print.println();
             Print.print("<----------- Passenger info Start :::: --------------->");
             Print.println();
-            Print.print("Passenger id : " + passenger.passengerId);
+            Print.print("Passenger id :: Passenger File ::: " + passenger.passengerId);
             Print.println();
 
             // passenger name is missing
@@ -181,20 +244,20 @@ public class Passenger {
                 Print.println();
             }
 
-            if (this.subscribedActivityList != null) {
-                Print.println();
-                Print.println();
-                Print.println();
-                Print.print("Subscribed activity details");
-                Print.println();
+            // if (this.subscribedActivityList != null) {
+            // Print.println();
+            // Print.println();
+            // Print.println();
+            // Print.print("Subscribed activity details");
+            // Print.println();
 
-                for (Activity activity : this.subscribedActivityList) {
-                    activity.printDestinatioDetailsUsingTravelObj(travelPackage);
-                    activity.printActivityDetails(activity);
-                }
+            // for (Activity activity : this.subscribedActivityList) {
+            // activity.printActivityDetails(activity, travelPackage);
+            // }
 
-            } else
-                Print.print("subscribedActivityList found null in Passenger.java");
+            // } else
+            // Print.print("subscribedActivityList found null in Passenger.java");
+
             Print.println();
             Print.print("<----------- Passenger info end :::: --------------->");
             Print.println();
