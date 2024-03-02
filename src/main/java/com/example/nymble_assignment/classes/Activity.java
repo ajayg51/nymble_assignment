@@ -40,7 +40,7 @@ public class Activity {
         return this.activityCost;
     }
 
-    public void setActivityCost(int cost) {
+    public void setActivityCost(double cost) {
         Print.println();
         Print.print("Setting up activity cost  :: " + cost);
         Print.println();
@@ -174,7 +174,9 @@ public class Activity {
 
     }
 
-    public void printDestinatioDetailsUsingTravelObj(TravelPackage travelPackage) {
+    public void printDestinatioDetailsUsingTravelObj(
+        TravelPackage travelPackage
+    ) {
         travelPackage.filterDestinationById(101);
         Destination destination = travelPackage.getFilteredDestination();
         Print.println();
@@ -208,71 +210,5 @@ public class Activity {
 
     }
 
-    public void printActivityDetailsMappedWithTravelPkg(
-            TravelPackage travelPackage,
-            Activity activity) {
-
-        // try {
-        // Print.println();
-        // Print.println();
-        // Print.println();
-        // Print.print("<----------- Activity Info Start Mapped with Travel Pkg ::::
-        // --------------->");
-        // Print.println();
-        // Print.print("Activity id : " + activity.activityId);
-        // Print.println();
-
-        // // activity name missing
-        // Print.print("Activity name : " + activity.activityName);
-        // Print.println();
-        // Print.print("Activity capacity : " + activity.activityCapacity);
-        // Print.println();
-        // Print.print("Activity cost : " + activity.activityCost);
-        // Print.println();
-
-        // // activity desc missing
-
-        // Print.print("Activity description : " + activity.activityDescription);
-        // Print.println();
-        // Print.println();
-        // Print.println();
-        // Print.println();
-        // Print.print("Mapped Destination Details : ");
-        // Print.println();
-
-        // if (travelPackage != null) {
-
-        // Destination destination =
-        // travelPackage.getDestinationById(activity.destinationId);
-
-        // if (destination != null) {
-        // Print.print("Mapped Destination id : " + destination.getDestinationId());
-        // Print.println();
-        // Print.print("Destination name : " + destination.getDestinationName());
-        // Print.println();
-        // }
-
-        // } else {
-
-        // Print.print("travelPackage found null in Activity.java");
-        // Print.println();
-        // }
-
-        // Print.print("<----------- Activity Info End :::: --------------->");
-        // Print.println();
-        // Print.println();
-        // Print.println();
-
-        // } catch (Exception e) {
-        // Print.println();
-        // Print.println();
-        // Print.println();
-        // Print.print(e);
-        // Print.println();
-        // Print.println();
-        // Print.println();
-        // }
-
-    }
 
 }

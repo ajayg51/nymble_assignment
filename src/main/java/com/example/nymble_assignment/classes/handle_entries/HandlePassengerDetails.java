@@ -127,7 +127,7 @@ public class HandlePassengerDetails {
 
         }
 
-        public static void subscribePassenger(
+        public static void  subscribePassenger(
                         Scanner scanner,
                         TravelPackage travelPackage) {
 

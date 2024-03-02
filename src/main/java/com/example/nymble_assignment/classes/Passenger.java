@@ -150,7 +150,6 @@ public class Passenger {
             Activity activity,
             TravelPackage travelPackage,
             PassengerTypeEnum passengerTypeEnum,
-
             double cost) {
 
         int travelPackagePassengerSize = travelPackage.getPassengerList().size();
@@ -222,7 +221,10 @@ public class Passenger {
         return "";
     }
 
-    public void printPassengerDetails(Passenger passenger, TravelPackage travelPackage) {
+    public void printPassengerDetails(
+            Passenger passenger,
+            TravelPackage travelPackage) {
+
         try {
             Print.println();
             Print.println();

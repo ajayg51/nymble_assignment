@@ -64,18 +64,20 @@ public class Destination {
     }
 
     public void addActivityInList(Activity activity) {
-        if (activity.getActivityId() != Constants.errorCode){
+        if (activity.getActivityId() != Constants.errorCode) {
             Print.println();
             Print.println();
             Print.print("Adding activity in destination :: destination.java :: ---> ");
             this.activityList.add(activity);
             Print.println();
-        }
-        else
+        } else
             Print.print("activity found null in Destination.java");
     }
 
-    public void printDestinationDetails(Destination destination,TravelPackage travelPackage) {
+    public void printDestinationDetails(
+            Destination destination,
+            TravelPackage travelPackage) {
+
         try {
             Print.println();
             Print.println();
