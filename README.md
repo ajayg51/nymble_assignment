@@ -25,6 +25,13 @@ https://github.com/ajayg51/nymble_assignment/assets/60037249/aa5be4c2-af14-42e2-
 
 ## UML Diagram High level
 
+![0](https://github.com/ajayg51/nymble_assignment/assets/60037249/ebfbd286-3988-4015-9bba-8946e2b9fdd1)
+![1](https://github.com/ajayg51/nymble_assignment/assets/60037249/3023c0ab-9f20-4523-97ac-54a84cb210db)
+![2](https://github.com/ajayg51/nymble_assignment/assets/60037249/3715e28d-56fb-4cdb-b4ef-1f0f0a2fb7b6)
+
+
+
+
 
 ##  UML Diagram low level
 
