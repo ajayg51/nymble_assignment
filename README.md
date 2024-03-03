@@ -1,5 +1,12 @@
 # nymble_assignment
 
+## known issue
+```
+  I know object drilling can be reduced further, will do so later.
+
+```
+
+
 ##  Problem statement
 ![0](https://github.com/ajayg51/nymble_assignment/assets/60037249/874a382f-e402-40a9-9666-4b763249490e)
 
