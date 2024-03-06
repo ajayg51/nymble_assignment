@@ -1,4 +1,13 @@
-# nymble_assignment
+# Juana Travel Agency | A Java based executable program to help users plan their vacation
+
+```
+
+  It handles functionalities like subscription of a user for an activity if their balance finds fit (for non-premium users)
+  A premium user can subscribe for any activity without having a check on their budget
+  Constraints on number of passengers is put by both Travel agency capacity as well as activity capacity
+  A passenger can subscribe only once for an activity but they can subscribe for other activities on the same destination
+
+```
 
 ## known issue
 ```
