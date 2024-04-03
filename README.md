@@ -1,5 +1,10 @@
 # Juana Travel Agency | A Java based executable program to help users plan their vacation
 
+## known issue
+```
+  I know object drilling can be reduced further, will do so later.
+
+```
 
 
 ```
@@ -20,11 +25,6 @@
 
 ```
 
-## known issue
-```
-  I know object drilling can be reduced further, will do so later.
-
-```
 
 
 ##  Problem statement
